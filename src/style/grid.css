@@ -1,0 +1,34 @@
+.grid__row {
+	display: flex;
+}
+
+.grid__node {
+	width: 25px;
+	height: 25px;
+	border-top: 1px solid var(--wall);
+	border-left: 1px solid var(--wall);
+}
+
+.grid__row .grid__node:last-child {
+	border-right: 1px solid var(--wall);
+}
+
+.grid__row:last-child .grid__node {
+	border-bottom: 1px solid var(--wall);
+}
+
+.grid__row:first-child .grid__node:first-child {
+	border-radius: 8px 0 0 0;
+}
+
+.grid__row:first-child .grid__node:last-child {
+	border-radius: 0 8px 0 0;
+}
+
+.grid__row:last-child .grid__node:first-child {
+	border-radius: 0 0 0 8px;
+}
+
+.grid__row:last-child .grid__node:last-child {
+	border-radius: 0 0 8px 0;
+}
