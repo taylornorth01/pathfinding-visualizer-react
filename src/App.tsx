@@ -12,9 +12,12 @@ interface State {
 	start: Position;
 	goal: Position;
 	isDragging: boolean;
+	placeType?: NodeType;
 }
 
-type Actions = { type: 'toggle-dragging'; payload?: NodeType };
+type Actions =
+	| { type: 'toggle-dragging'; payload?: NodeType }
+	| { type: 'place-node' };
 
 const init = (initial: State) => {
 	initial.grid = placeFlag('start', initial.start, initial.grid);
@@ -27,7 +30,13 @@ const reducer = (state: State, action: Actions) => {
 
 	switch (action.type) {
 		case 'toggle-dragging':
-			return { ...dState, isDragging: !dState.isDragging };
+			return {
+				...dState,
+				isDragging: !dState.isDragging,
+				placeType: action.payload,
+			};
+		case 'place-node':
+			return { ...dState };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -41,6 +50,7 @@ const App: React.FC = () => {
 			start: { x: 0, y: 0 },
 			goal: { x: 4, y: 4 },
 			isDragging: false,
+			placeType: undefined,
 		},
 		init
 	);
@@ -53,6 +63,7 @@ const App: React.FC = () => {
 
 	const mouseEnter = (node: GridNode) => {
 		console.log('Mouse enter event', node);
+		dispatch({ type: 'place-node' });
 	};
 
 	const mouseUp = () => {
@@ -66,7 +77,7 @@ const App: React.FC = () => {
 			<Grid
 				grid={state.grid}
 				mouseDown={(n) => mouseDown(n)}
-				mouseEnter={(n) => mouseEnter(n)}
+				mouseEnter={(n) => state.isDragging && mouseEnter(n)}
 			/>
 		</div>
 	);
