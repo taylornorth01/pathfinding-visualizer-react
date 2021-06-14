@@ -3,7 +3,7 @@ import { useReducer } from 'react';
 import './app.css';
 import { createGrid, placeFlag } from './common/';
 import Grid from './component/Grid';
-import { GridObject, Position } from './model/';
+import { GridNode, GridObject, Position } from './model/';
 
 interface State {
 	grid: GridObject;
@@ -39,9 +39,13 @@ const App: React.FC = () => {
 		init
 	);
 
+	const mouseDown = (node: GridNode) => {
+		console.log('Mouse down event', node);
+	};
+
 	return (
 		<div className='app'>
-			<Grid grid={state.grid} />
+			<Grid grid={state.grid} mouseDown={(node) => mouseDown(node)} />
 		</div>
 	);
 };

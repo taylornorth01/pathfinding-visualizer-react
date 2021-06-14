@@ -1,13 +1,14 @@
 //
 
-import { GridObject } from '../model';
+import { GridNode, GridObject } from '../model';
 import '../style/grid.css';
 
 interface Props {
 	grid: GridObject;
+	mouseDown: (node: GridNode) => void;
 }
 
-const Grid: React.FC<Props> = ({ grid }) => {
+const Grid: React.FC<Props> = ({ grid, mouseDown }) => {
 	return (
 		<div>
 			{grid.map((row) => {
@@ -15,7 +16,13 @@ const Grid: React.FC<Props> = ({ grid }) => {
 					return (
 						<div className='grid__row'>
 							{row.map((node) => {
-								return <div className='grid__node'></div>;
+								return (
+									<div
+										className='grid__node'
+										onMouseDown={() => mouseDown(node)}>
+										{node.type}
+									</div>
+								);
 							})}
 						</div>
 					);
