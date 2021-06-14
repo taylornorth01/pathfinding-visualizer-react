@@ -7,7 +7,17 @@ interface Props {
 }
 
 const Grid: React.FC<Props> = ({ grid }) => {
-	return <div></div>;
+	return (
+		<div>
+			{grid.map((row) => {
+				{
+					return row.map((node) => {
+						return <div>{node.type}</div>;
+					});
+				}
+			})}
+		</div>
+	);
 };
 
 export default Grid;
