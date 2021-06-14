@@ -5,6 +5,8 @@ import { createGrid, placeFlag } from './common/';
 import Grid from './component/Grid';
 import { GridNode, GridObject, NodeType, Position } from './model/';
 
+var _ = require('lodash');
+
 interface State {
 	grid: GridObject;
 	start: Position;
@@ -21,9 +23,11 @@ const init = (initial: State) => {
 };
 
 const reducer = (state: State, action: Actions) => {
+	let dState = _.cloneDeep(state);
+
 	switch (action.type) {
 		case 'toggle-dragging':
-			return { ...state, isDragging: !state.isDragging };
+			return { ...dState, isDragging: !dState.isDragging };
 		default:
 			throw new Error('Reducer action not found');
 	}
