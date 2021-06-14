@@ -3,29 +3,17 @@ import { useReducer } from 'react';
 import './app.css';
 import { createGrid, placeFlag } from './common/';
 import Grid from './component/Grid';
-import { GridNode, GridObject, NodeType, Position } from './model/';
+import { GridNode, AppState, AppActions } from './model/';
 
 var _ = require('lodash');
 
-interface State {
-	grid: GridObject;
-	start: Position;
-	goal: Position;
-	isDragging: boolean;
-	placeType?: NodeType;
-}
-
-type Actions =
-	| { type: 'toggle-dragging'; payload?: NodeType }
-	| { type: 'place-node' };
-
-const init = (initial: State) => {
+const init = (initial: AppState) => {
 	initial.grid = placeFlag('start', initial.start, initial.grid);
 	initial.grid = placeFlag('goal', initial.goal, initial.grid);
 	return initial;
 };
 
-const reducer = (state: State, action: Actions) => {
+const reducer = (state: AppState, action: AppActions) => {
 	let dState = _.cloneDeep(state);
 
 	switch (action.type) {
@@ -63,7 +51,7 @@ const App: React.FC = () => {
 
 	const mouseEnter = (node: GridNode) => {
 		console.log('Mouse enter event', node);
-		dispatch({ type: 'place-node' });
+		dispatch({ type: 'place-node', payload: node });
 	};
 
 	const mouseUp = () => {
