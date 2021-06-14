@@ -1,6 +1,7 @@
 //
+export type FlagType = 'start' | 'goal';
 export type Visited = 'open' | 'closed' | 'current';
-export type NodeType = 'start' | 'goal' | 'empty' | 'wall';
+export type NodeType = FlagType | 'empty' | 'wall';
 
 export interface Position {
 	x: number;
