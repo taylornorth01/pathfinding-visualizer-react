@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
 	return (
 		<div className='app'>
-			<Grid grid={state.grid}></Grid>
+			<Grid grid={state.grid} />
 		</div>
 	);
 };
