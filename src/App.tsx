@@ -2,10 +2,11 @@
 import { useReducer } from 'react';
 import './app.css';
 import { createGrid } from './common/';
-import { Grid } from './model/';
+import Grid from './component/Grid';
+import { GridObject } from './model/';
 
 interface State {
-	grid?: Grid;
+	grid: GridObject;
 }
 
 type Actions = { type: 'example' };
@@ -22,7 +23,11 @@ const reducer = (state: State, action: Actions) => {
 const App: React.FC = () => {
 	const [state, dispatch] = useReducer(reducer, { grid: createGrid(5, 5) });
 
-	return <div className='app'>{JSON.stringify(state.grid)}</div>;
+	return (
+		<div className='app'>
+			<Grid grid={state.grid}></Grid>
+		</div>
+	);
 };
 
 export default App;

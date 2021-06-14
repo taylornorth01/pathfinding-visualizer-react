@@ -13,4 +13,4 @@ export interface GridNode {
 	type: NodeType;
 }
 
-export type Grid = GridNode[][];
+export type GridObject = GridNode[][];

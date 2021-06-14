@@ -1,7 +1,7 @@
 //
-import { Grid, GridNode } from '../model';
+import { GridObject, GridNode } from '../model';
 
-export const createGrid = (h: number, w: number): Grid => {
+export const createGrid = (h: number, w: number): GridObject => {
 	let grid: GridNode[][] = [];
 
 	for (let y = 0; y < h; y++) {
