@@ -12,23 +12,22 @@ interface Props {
 const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
 	return (
 		<div>
-			{grid.map((row) => {
-				{
-					return (
-						<div className='grid__row'>
-							{row.map((node) => {
-								return (
-									<div
-										className='grid__node'
-										onMouseDown={() => mouseDown(node)}
-										onMouseEnter={() => mouseEnter(node)}>
-										{node.type}
-									</div>
-								);
-							})}
-						</div>
-					);
-				}
+			{grid.map((row, rowIdx) => {
+				return (
+					<div className='grid__row' key={rowIdx}>
+						{row.map((node, nodeIdx) => {
+							return (
+								<div
+									className='grid__node'
+									onMouseDown={() => mouseDown(node)}
+									onMouseEnter={() => mouseEnter(node)}
+									key={nodeIdx}>
+									{node.type}
+								</div>
+							);
+						})}
+					</div>
+				);
 			})}
 		</div>
 	);
