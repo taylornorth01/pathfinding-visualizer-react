@@ -1,7 +1,12 @@
 //
 import { useReducer } from 'react';
 import './App.css';
-import { createGrid, placeFlag, minipulateNodes } from './common/';
+import {
+	createGrid,
+	placeFlag,
+	minipulateNodes,
+	getAlgorithmObject,
+} from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
 
@@ -25,6 +30,8 @@ const reducer = (state: AppState, action: AppActions) => {
 			};
 		case 'modify-nodes':
 			return { ...dState, ...minipulateNodes(dState, action.payload) };
+		case 'change-algorithm':
+			return { ...state, algorithm: getAlgorithmObject(action.payload) };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -39,6 +46,7 @@ const App: React.FC = () => {
 			goal: { x: 4, y: 4 },
 			isDragging: false,
 			placeType: undefined,
+			algorithm: undefined,
 		},
 		init
 	);
@@ -63,6 +71,20 @@ const App: React.FC = () => {
 	return (
 		<div className='app'>
 			{/* {JSON.stringify(state)} */}
+			{state.algorithm?.id}
+			{state.algorithm?.name}
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-algorithm', payload: { id: 'dijkstra' } })
+				}>
+				Test dij
+			</div>
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-algorithm', payload: { id: 'astar' } })
+				}>
+				Test astar
+			</div>
 			<Grid
 				grid={state.grid}
 				mouseDown={(n) => mouseDown(n)}
