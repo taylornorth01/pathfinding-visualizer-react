@@ -19,7 +19,15 @@ export const minipulateNodes = (state: AppState, node: GridNode): AppState => {
 			if (node.type !== 'goal') {
 				if (state.start.y !== node.pos.y || state.start.x !== node.pos.x) {
 					state.grid[node.pos.y][node.pos.x].type = 'start';
-					state.grid[state.start.y][state.start.x].type = 'empty';
+					if (node.type === 'wall' || node.type === 'empty') {
+						node.overided = node.type;
+					}
+					let st = state.grid[state.start.y][state.start.x];
+					st.type = 'empty';
+					if (st.overided) {
+						st.type = st.overided;
+						delete st.overided;
+					}
 					state.start = node.pos;
 					return { ...state };
 				}
@@ -29,7 +37,15 @@ export const minipulateNodes = (state: AppState, node: GridNode): AppState => {
 			if (node.type !== 'start') {
 				if (state.goal.y !== node.pos.y || state.goal.x !== node.pos.x) {
 					state.grid[node.pos.y][node.pos.x].type = 'goal';
-					state.grid[state.goal.y][state.goal.x].type = 'empty';
+					if (node.type === 'wall' || node.type === 'empty') {
+						node.overided = node.type;
+					}
+					let go = state.grid[state.goal.y][state.goal.x];
+					go.type = 'empty';
+					if (go.overided) {
+						go.type = go.overided;
+						delete go.overided;
+					}
 					state.goal = node.pos;
 					return { ...state };
 				}
