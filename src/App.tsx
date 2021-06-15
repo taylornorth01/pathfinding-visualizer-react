@@ -1,6 +1,6 @@
 //
 import { useReducer } from 'react';
-import './app.css';
+import './App.css';
 import { createGrid, placeFlag, minipulateNodes } from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
@@ -62,7 +62,7 @@ const App: React.FC = () => {
 
 	return (
 		<div className='app'>
-			{JSON.stringify(state)}
+			{/* {JSON.stringify(state)} */}
 			<Grid
 				grid={state.grid}
 				mouseDown={(n) => mouseDown(n)}
