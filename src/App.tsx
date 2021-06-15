@@ -23,7 +23,7 @@ const reducer = (state: AppState, action: AppActions) => {
 				isDragging: !dState.isDragging,
 				placeType: action.payload,
 			};
-		case 'place-node':
+		case 'modify-nodes':
 			return { ...dState, ...minipulateNodes(dState, action.payload) };
 		default:
 			throw new Error('Reducer action not found');
@@ -47,12 +47,12 @@ const App: React.FC = () => {
 		console.log('Mouse down event', node);
 		window.addEventListener('mouseup', mouseUp);
 		dispatch({ type: 'toggle-dragging', payload: node.type });
-		dispatch({ type: 'place-node', payload: node });
+		dispatch({ type: 'modify-nodes', payload: node });
 	};
 
 	const mouseEnter = (node: GridNode) => {
 		console.log('Mouse enter event', node);
-		dispatch({ type: 'place-node', payload: node });
+		dispatch({ type: 'modify-nodes', payload: node });
 	};
 
 	const mouseUp = () => {

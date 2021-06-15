@@ -11,4 +11,4 @@ export interface AppState {
 
 export type AppActions =
 	| { type: 'toggle-dragging'; payload?: NodeType }
-	| { type: 'place-node'; payload: GridNode };
+	| { type: 'modify-nodes'; payload: GridNode };
