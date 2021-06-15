@@ -1,7 +1,7 @@
 //
 import { useReducer } from 'react';
 import './app.css';
-import { createGrid, placeFlag } from './common/';
+import { createGrid, placeFlag, minipulateNodes } from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
 
@@ -14,7 +14,7 @@ const init = (initial: AppState) => {
 };
 
 const reducer = (state: AppState, action: AppActions) => {
-	let dState = _.cloneDeep(state);
+	let dState: AppState = _.cloneDeep(state);
 
 	switch (action.type) {
 		case 'toggle-dragging':
@@ -24,7 +24,7 @@ const reducer = (state: AppState, action: AppActions) => {
 				placeType: action.payload,
 			};
 		case 'place-node':
-			return { ...dState };
+			return { ...dState, ...minipulateNodes(dState, action.payload) };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -47,6 +47,7 @@ const App: React.FC = () => {
 		console.log('Mouse down event', node);
 		window.addEventListener('mouseup', mouseUp);
 		dispatch({ type: 'toggle-dragging', payload: node.type });
+		dispatch({ type: 'place-node', payload: node });
 	};
 
 	const mouseEnter = (node: GridNode) => {
