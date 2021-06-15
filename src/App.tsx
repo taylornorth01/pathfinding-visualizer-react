@@ -31,7 +31,7 @@ const reducer = (state: AppState, action: AppActions) => {
 		case 'modify-nodes':
 			return { ...dState, ...minipulateNodes(dState, action.payload) };
 		case 'change-algorithm':
-			return { ...state, algorithm: getAlgorithmObject(action.payload) };
+			return { ...dState, algorithm: getAlgorithmObject(action.payload) };
 		default:
 			throw new Error('Reducer action not found');
 	}
