@@ -21,3 +21,11 @@ export const placeFlag = (
 	grid[pos.y][pos.x].type = flag;
 	return grid;
 };
+
+export const clearPath = (grid: GridObject): GridObject => {
+	return grid.map((row) => {
+		return row.map((node) => {
+			return { ...node, state: undefined };
+		});
+	});
+};
