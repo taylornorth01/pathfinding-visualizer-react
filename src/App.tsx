@@ -133,8 +133,10 @@ const App: React.FC = () => {
 			</div>
 			<Grid
 				grid={state.grid}
-				mouseDown={(n) => mouseDown(n)}
-				mouseEnter={(n) => state.isDragging && mouseEnter(n)}
+				mouseDown={(n) => !state.isSearching && mouseDown(n)}
+				mouseEnter={(n) =>
+					!state.isSearching && state.isDragging && mouseEnter(n)
+				}
 			/>
 			{JSON.stringify(state)}
 		</div>
