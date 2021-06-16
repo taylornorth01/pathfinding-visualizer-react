@@ -11,7 +11,7 @@ import {
 	updateAlgorithm,
 	mapNodesStateToGrid,
 } from './common/';
-import Grid from './component/Grid';
+import { Grid } from './component/';
 import { GridNode, AppState, AppActions } from './model/';
 
 var _ = require('lodash');

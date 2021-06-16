@@ -8,7 +8,7 @@ interface Props {
 	mouseEnter: (node: GridNode) => void;
 }
 
-const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
+export const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
 	const getNodeClass = (node: GridNode) => {
 		switch (node.type) {
 			case 'wall':
@@ -57,5 +57,3 @@ const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
 		</div>
 	);
 };
-
-export default Grid;
