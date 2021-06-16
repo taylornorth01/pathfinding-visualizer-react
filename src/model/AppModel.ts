@@ -1,6 +1,7 @@
 //
 import { AlgorithmId, AlgorithmObject } from './AlgorithmModel';
 import { GridNode, GridObject, NodeType, Position } from './GridModel';
+import { MazeId, MazeObject } from './MazeModel';
 
 export type Speed =
 	| { id: 'slow'; rate: 100 }
@@ -18,6 +19,7 @@ export interface AppState {
 	wasSearch: boolean;
 	placeType?: NodeType;
 	algorithm?: AlgorithmObject;
+	maze?: MazeObject;
 	speed: Speed;
 }
 
@@ -30,4 +32,5 @@ export type AppActions =
 	| { type: 'toggle-searching' }
 	| { type: 'clear-path' }
 	| { type: 'change-speed'; payload: SpeedId }
-	| { type: 'set-was-search'; payload: boolean };
+	| { type: 'set-was-search'; payload: boolean }
+	| { type: 'change-maze'; payload: MazeId };
