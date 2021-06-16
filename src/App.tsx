@@ -31,7 +31,19 @@ const reducer = (state: AppState, action: AppActions) => {
 		case 'modify-nodes':
 			return { ...dState, ...minipulateNodes(dState, action.payload) };
 		case 'change-algorithm':
-			return { ...dState, algorithm: getAlgorithmObject(action.payload) };
+			return {
+				...dState,
+				algorithm: getAlgorithmObject(dState, action.payload),
+			};
+		case 'update-grid':
+			action.payload.map(
+				(node) => (dState.grid[node.pos.y][node.pos.x].state = node.state)
+			);
+			return { ...dState };
+		case 'draw-path':
+			dState.grid[action.payload.pos.y][action.payload.pos.x].state =
+				action.payload.state;
+			return { ...dState };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -50,6 +62,37 @@ const App: React.FC = () => {
 		},
 		init
 	);
+
+	const startAlgorithm = async () => {
+		if (!state.algorithm) return;
+		let algorithm = state.algorithm.get();
+		let path: GridNode[] = [];
+		while (true) {
+			let step: any = await new Promise((res) => {
+				setTimeout(() => {
+					res(algorithm?.step());
+				}, 100);
+			});
+			if (step.modified) {
+				dispatch({ type: 'update-grid', payload: step.modified });
+				continue;
+			}
+			path = step.path;
+			break;
+		}
+		while (true) {
+			let step: any = await new Promise((res) => {
+				setTimeout(() => {
+					res(path.shift());
+				}, 100);
+			});
+			if (step) {
+				dispatch({ type: 'draw-path', payload: step });
+				continue;
+			}
+			break;
+		}
+	};
 
 	const mouseDown = (node: GridNode) => {
 		console.log('Mouse down event', node);
@@ -70,9 +113,9 @@ const App: React.FC = () => {
 
 	return (
 		<div className='app'>
-			{/* {JSON.stringify(state)} */}
 			{state.algorithm?.id}
 			{state.algorithm?.name}
+			<div onClick={startAlgorithm}>Start</div>
 			<div
 				onClick={() =>
 					dispatch({ type: 'change-algorithm', payload: { id: 'dijkstra' } })
@@ -90,6 +133,7 @@ const App: React.FC = () => {
 				mouseDown={(n) => mouseDown(n)}
 				mouseEnter={(n) => state.isDragging && mouseEnter(n)}
 			/>
+			{JSON.stringify(state)}
 		</div>
 	);
 };
