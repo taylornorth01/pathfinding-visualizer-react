@@ -44,6 +44,8 @@ const reducer = (state: AppState, action: AppActions) => {
 			dState.grid[action.payload.pos.y][action.payload.pos.x].state =
 				action.payload.state;
 			return { ...dState };
+		case 'toggle-searching':
+			return { ...dState, isSearching: !dState.isSearching };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -57,11 +59,13 @@ const App: React.FC = () => {
 			start: { x: 0, y: 0 },
 			goal: { x: 4, y: 4 },
 			isDragging: false,
+			isSearching: false,
 		},
 		init
 	);
 
 	const startAlgorithm = async () => {
+		dispatch({ type: 'toggle-searching' });
 		if (!state.algorithm) return;
 		let algorithm = state.algorithm.get();
 		let path: GridNode[] = [];
@@ -90,6 +94,7 @@ const App: React.FC = () => {
 			}
 			break;
 		}
+		dispatch({ type: 'toggle-searching' });
 	};
 
 	const mouseDown = (node: GridNode) => {
