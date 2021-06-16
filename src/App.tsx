@@ -57,8 +57,6 @@ const App: React.FC = () => {
 			start: { x: 0, y: 0 },
 			goal: { x: 4, y: 4 },
 			isDragging: false,
-			placeType: undefined,
-			algorithm: undefined,
 		},
 		init
 	);
