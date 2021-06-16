@@ -1,29 +1,22 @@
 //
 import { Astar } from '../algorithm';
-import { AlgorithmId, AlgorithmObject, GridObject, Position } from '../model';
+import { AlgorithmId, AlgorithmObject, AppState } from '../model';
 
-export const getAlgorithmObject = ({ id }: AlgorithmId): AlgorithmObject => {
+export const getAlgorithmObject = (
+	{ grid, start, goal }: AppState,
+	{ id }: AlgorithmId
+): AlgorithmObject => {
 	switch (id) {
 		case 'astar':
-			return { id: 'astar', name: 'A*' };
+			return {
+				id: 'astar',
+				name: 'A*',
+				get: () => new Astar(grid, start, goal),
+			};
 		case 'dijkstra':
-			return { id: 'dijkstra', name: 'Dijkstra' };
+			return { id: 'dijkstra', name: 'Dijkstra', get: () => null };
 		case 'depthfs':
-			return { id: 'depthfs', name: 'Depth First Search' };
-		default:
-			throw new Error('Algorithm not found');
-	}
-};
-
-export const getAlgorithmClass = (
-	{ id }: AlgorithmId,
-	grid: GridObject,
-	start: Position,
-	goal: Position
-): Astar => {
-	switch (id) {
-		case 'astar':
-			return new Astar(grid, start, goal);
+			return { id: 'depthfs', name: 'Depth First Search', get: () => null };
 		default:
 			throw new Error('Algorithm not found');
 	}
