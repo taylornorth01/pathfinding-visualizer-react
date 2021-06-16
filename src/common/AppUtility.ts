@@ -62,7 +62,7 @@ export const getSpeed = ({ id }: SpeedId): Speed => {
 		case 'medium':
 			return { id: 'medium', rate: 50 };
 		case 'fast':
-			return { id: 'fast', rate: 10 };
+			return { id: 'fast', rate: 1 };
 		default:
 			throw new Error('Speed not found');
 	}

@@ -105,9 +105,12 @@ const App: React.FC = () => {
 		}
 		while (true) {
 			let step: any = await new Promise((res) => {
-				setTimeout(() => {
-					res(path.shift());
-				}, state.speed.rate * 0.5);
+				setTimeout(
+					() => {
+						res(path.shift());
+					},
+					state.speed.rate < 10 ? 10 : state.speed.rate * 0.5
+				);
 			});
 			if (step) {
 				dispatch({ type: 'draw-path', payload: step });

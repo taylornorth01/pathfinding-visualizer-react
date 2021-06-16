@@ -6,7 +6,7 @@ import { MazeId, MazeObject } from './MazeModel';
 export type Speed =
 	| { id: 'slow'; rate: 100 }
 	| { id: 'medium'; rate: 50 }
-	| { id: 'fast'; rate: 10 };
+	| { id: 'fast'; rate: 1 };
 
 export type SpeedId = Pick<Speed, 'id'>;
 
