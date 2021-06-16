@@ -7,6 +7,7 @@ import {
 	minipulateNodes,
 	getAlgorithmObject,
 	clearPath,
+	getSpeed,
 } from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
@@ -54,6 +55,8 @@ const reducer = (state: AppState, action: AppActions) => {
 			return { ...dState, isSearching: !dState.isSearching };
 		case 'clear-path':
 			return { ...dState, grid: clearPath(dState.grid) };
+		case 'change-speed':
+			return { ...dState, speed: getSpeed(action.payload) };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -68,6 +71,7 @@ const App: React.FC = () => {
 			goal: { x: 4, y: 4 },
 			isDragging: false,
 			isSearching: false,
+			speed: getSpeed({ id: 'fast' }),
 		},
 		init
 	);
@@ -82,7 +86,7 @@ const App: React.FC = () => {
 			let step: any = await new Promise((res) => {
 				setTimeout(() => {
 					res(algorithm?.step());
-				}, 100);
+				}, state.speed.rate);
 			});
 			if (step.modified) {
 				dispatch({ type: 'update-grid', payload: step.modified });
@@ -95,7 +99,7 @@ const App: React.FC = () => {
 			let step: any = await new Promise((res) => {
 				setTimeout(() => {
 					res(path.shift());
-				}, 100);
+				}, state.speed.rate * 0.5);
 			});
 			if (step) {
 				dispatch({ type: 'draw-path', payload: step });
@@ -128,6 +132,24 @@ const App: React.FC = () => {
 			{state.algorithm?.id}
 			{state.algorithm?.name}
 			<div onClick={startAlgorithm}>Start</div>
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-speed', payload: { id: 'slow' } })
+				}>
+				Slow
+			</div>
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-speed', payload: { id: 'medium' } })
+				}>
+				Medium
+			</div>
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-speed', payload: { id: 'fast' } })
+				}>
+				Fast
+			</div>
 			<div
 				onClick={() =>
 					dispatch({ type: 'change-algorithm', payload: { id: 'dijkstra' } })

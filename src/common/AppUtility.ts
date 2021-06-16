@@ -1,5 +1,5 @@
 //
-import { AppState, GridNode } from '../model';
+import { AppState, GridNode, Speed, SpeedId } from '../model';
 
 export const minipulateNodes = (state: AppState, node: GridNode): AppState => {
 	switch (state.placeType) {
@@ -53,4 +53,17 @@ export const minipulateNodes = (state: AppState, node: GridNode): AppState => {
 			break;
 	}
 	return state;
+};
+
+export const getSpeed = ({ id }: SpeedId): Speed => {
+	switch (id) {
+		case 'slow':
+			return { id: 'slow', rate: 100 };
+		case 'medium':
+			return { id: 'medium', rate: 50 };
+		case 'fast':
+			return { id: 'fast', rate: 10 };
+		default:
+			throw new Error('Speed not found');
+	}
 };

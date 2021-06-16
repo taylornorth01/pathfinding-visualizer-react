@@ -2,6 +2,13 @@
 import { AlgorithmId, AlgorithmObject } from './AlgorithmModel';
 import { GridNode, GridObject, NodeType, Position } from './GridModel';
 
+export type Speed =
+	| { id: 'slow'; rate: 100 }
+	| { id: 'medium'; rate: 50 }
+	| { id: 'fast'; rate: 10 };
+
+export type SpeedId = Pick<Speed, 'id'>;
+
 export interface AppState {
 	grid: GridObject;
 	start: Position;
@@ -10,6 +17,7 @@ export interface AppState {
 	isSearching: boolean;
 	placeType?: NodeType;
 	algorithm?: AlgorithmObject;
+	speed: Speed;
 }
 
 export type AppActions =
@@ -19,4 +27,5 @@ export type AppActions =
 	| { type: 'update-grid'; payload: GridNode[] }
 	| { type: 'draw-path'; payload: GridNode }
 	| { type: 'toggle-searching' }
-	| { type: 'clear-path' };
+	| { type: 'clear-path' }
+	| { type: 'change-speed'; payload: SpeedId };
