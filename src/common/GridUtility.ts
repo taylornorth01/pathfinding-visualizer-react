@@ -29,3 +29,11 @@ export const clearPath = (grid: GridObject): GridObject => {
 		});
 	});
 };
+
+export const mapNodesStateToGrid = (
+	nodes: GridNode[],
+	grid: GridObject
+): GridObject => {
+	nodes.map((node) => (grid[node.pos.y][node.pos.x].state = node.state));
+	return grid;
+};
