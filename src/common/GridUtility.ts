@@ -37,3 +37,15 @@ export const mapNodesStateToGrid = (
 	nodes.map((node) => (grid[node.pos.y][node.pos.x].state = node.state));
 	return grid;
 };
+
+export const clearWalls = (grid: GridObject): GridObject => {
+	return grid.map((row) => {
+		return row.map((node) => {
+			if (node.type === 'wall') {
+				node.type = 'empty';
+				return node;
+			}
+			return node;
+		});
+	});
+};
