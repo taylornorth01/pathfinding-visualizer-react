@@ -7,6 +7,7 @@ export interface AppState {
 	start: Position;
 	goal: Position;
 	isDragging: boolean;
+	isSearching: boolean;
 	placeType?: NodeType;
 	algorithm?: AlgorithmObject;
 }
@@ -16,4 +17,5 @@ export type AppActions =
 	| { type: 'modify-nodes'; payload: GridNode }
 	| { type: 'change-algorithm'; payload: AlgorithmId }
 	| { type: 'update-grid'; payload: GridNode[] }
-	| { type: 'draw-path'; payload: GridNode };
+	| { type: 'draw-path'; payload: GridNode }
+	| { type: 'toggle-searching' };
