@@ -3,8 +3,8 @@
 }
 
 .grid__node {
-	width: 25px;
-	height: 25px;
+	width: 50px;
+	height: 50px;
 	border-top: 1px solid var(--wall);
 	border-left: 1px solid var(--wall);
 }
@@ -31,4 +31,32 @@
 
 .grid__row:last-child .grid__node:last-child {
 	border-radius: 0 0 8px 0;
+}
+
+.colour__wall {
+	background: var(--wall);
+}
+
+.colour__open {
+	background: var(--open);
+}
+
+.colour__closed {
+	background: var(--closed);
+}
+
+.colour__path {
+	background: var(--path);
+}
+
+.colour__start {
+	background: var(--start);
+}
+
+.colour__goal {
+	background: var(--goal);
+}
+
+.colour__current {
+	background: var(--current);
 }
