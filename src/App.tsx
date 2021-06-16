@@ -6,6 +6,7 @@ import {
 	placeFlag,
 	minipulateNodes,
 	getAlgorithmObject,
+	clearPath,
 } from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
@@ -29,7 +30,12 @@ const reducer = (state: AppState, action: AppActions) => {
 				placeType: action.payload,
 			};
 		case 'modify-nodes':
-			return { ...dState, ...minipulateNodes(dState, action.payload) };
+			dState = { ...dState, ...minipulateNodes(dState, action.payload) };
+			let algorithm;
+			if (dState.algorithm) {
+				algorithm = getAlgorithmObject(dState, dState.algorithm);
+			}
+			return { ...dState, algorithm };
 		case 'change-algorithm':
 			return {
 				...dState,
@@ -46,6 +52,8 @@ const reducer = (state: AppState, action: AppActions) => {
 			return { ...dState };
 		case 'toggle-searching':
 			return { ...dState, isSearching: !dState.isSearching };
+		case 'clear-path':
+			return { ...dState, grid: clearPath(dState.grid) };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -65,8 +73,9 @@ const App: React.FC = () => {
 	);
 
 	const startAlgorithm = async () => {
-		dispatch({ type: 'toggle-searching' });
 		if (!state.algorithm) return;
+		dispatch({ type: 'toggle-searching' });
+		dispatch({ type: 'clear-path' });
 		let algorithm = state.algorithm.get();
 		let path: GridNode[] = [];
 		while (true) {
