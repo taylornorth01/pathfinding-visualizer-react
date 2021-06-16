@@ -14,4 +14,6 @@ export interface AppState {
 export type AppActions =
 	| { type: 'toggle-dragging'; payload?: NodeType }
 	| { type: 'modify-nodes'; payload: GridNode }
-	| { type: 'change-algorithm'; payload: AlgorithmId };
+	| { type: 'change-algorithm'; payload: AlgorithmId }
+	| { type: 'update-grid'; payload: GridNode[] }
+	| { type: 'draw-path'; payload: GridNode };
