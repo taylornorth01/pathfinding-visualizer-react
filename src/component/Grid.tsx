@@ -1,5 +1,5 @@
 //
-import { GridNode, GridObject } from '../model';
+import { GridNode, GridObject, NodeColour } from '../model';
 import '../style/grid.css';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
-	const getNodeClass = (node: GridNode) => {
+	const getNodeClass = (node: GridNode): NodeColour => {
 		switch (node.type) {
 			case 'wall':
 				return ' colour__wall';
@@ -45,9 +45,9 @@ export const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
 									onMouseDown={() => mouseDown(node)}
 									onMouseEnter={() => mouseEnter(node)}
 									key={nodeIdx}>
-									{node.type}
+									{/* {node.type} */}
 									<br />
-									{node.state}
+									{/* {node.state} */}
 								</div>
 							);
 						})}
