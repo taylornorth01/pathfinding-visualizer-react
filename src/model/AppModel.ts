@@ -15,6 +15,7 @@ export interface AppState {
 	goal: Position;
 	isDragging: boolean;
 	isSearching: boolean;
+	wasSearch: boolean;
 	placeType?: NodeType;
 	algorithm?: AlgorithmObject;
 	speed: Speed;
@@ -28,4 +29,5 @@ export type AppActions =
 	| { type: 'draw-path'; payload: GridNode }
 	| { type: 'toggle-searching' }
 	| { type: 'clear-path' }
-	| { type: 'change-speed'; payload: SpeedId };
+	| { type: 'change-speed'; payload: SpeedId }
+	| { type: 'set-was-search'; payload: boolean };
