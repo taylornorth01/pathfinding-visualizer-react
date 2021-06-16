@@ -1,5 +1,5 @@
 //
-import { Astar } from '../algorithm';
+import { Astar, Dijkstra } from '../algorithm';
 import { AlgorithmId, AlgorithmObject, AppState } from '../model';
 import { clearPath, mapNodesStateToGrid } from './GridUtility';
 
@@ -14,8 +14,12 @@ export const getAlgorithmObject = (
 				name: 'A*',
 				get: () => new Astar(grid, start, goal),
 			};
-		// case 'dijkstra':
-		// 	return { id: 'dijkstra', name: 'Dijkstra', get: () => null };
+		case 'dijkstra':
+			return {
+				id: 'dijkstra',
+				name: 'Dijkstra',
+				get: () => new Dijkstra(grid, start, goal),
+			};
 		// case 'depthfs':
 		// 	return { id: 'depthfs', name: 'Depth First Search', get: () => null };
 		default:
