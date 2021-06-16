@@ -12,6 +12,7 @@ import {
 	mapNodesStateToGrid,
 	getMazeObject,
 	updateMaze,
+	clearWalls,
 } from './common/';
 import { Grid } from './component/';
 import { GridNode, AppState, AppActions } from './model/';
@@ -64,6 +65,9 @@ const reducer = (state: AppState, action: AppActions) => {
 		case 'change-maze':
 			dState.maze = getMazeObject(action.payload, dState.grid);
 			return { ...dState, ...updateMaze(dState) };
+		case 'clear-walls':
+			dState = { ...dState, grid: clearWalls(dState.grid) };
+			return { ...dState, ...updateAlgorithm(dState) };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -144,6 +148,8 @@ const App: React.FC = () => {
 			{state.algorithm?.id}
 			{state.algorithm?.name}
 			<div onClick={startAlgorithm}>Start</div>
+			<div onClick={() => dispatch({ type: 'clear-path' })}>Clear path</div>
+			<div onClick={() => dispatch({ type: 'clear-walls' })}>Remove walls</div>
 			<div
 				onClick={() =>
 					dispatch({ type: 'change-maze', payload: { id: 'recursive' } })

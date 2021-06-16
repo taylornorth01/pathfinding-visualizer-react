@@ -33,4 +33,5 @@ export type AppActions =
 	| { type: 'clear-path' }
 	| { type: 'change-speed'; payload: SpeedId }
 	| { type: 'set-was-search'; payload: boolean }
-	| { type: 'change-maze'; payload: MazeId };
+	| { type: 'change-maze'; payload: MazeId }
+	| { type: 'clear-walls' };
