@@ -9,6 +9,7 @@ import {
 	clearPath,
 	getSpeed,
 	updateAlgorithm,
+	mapNodesStateToGrid,
 } from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
@@ -41,10 +42,10 @@ const reducer = (state: AppState, action: AppActions) => {
 				wasSearch: false,
 			};
 		case 'update-grid':
-			action.payload.map(
-				(node) => (dState.grid[node.pos.y][node.pos.x].state = node.state)
-			);
-			return { ...dState };
+			return {
+				...dState,
+				grid: mapNodesStateToGrid(action.payload, dState.grid),
+			};
 		case 'draw-path':
 			dState.grid[action.payload.pos.y][action.payload.pos.x].state =
 				action.payload.state;
@@ -163,6 +164,12 @@ const App: React.FC = () => {
 					dispatch({ type: 'change-algorithm', payload: { id: 'astar' } })
 				}>
 				Test astar
+			</div>
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-algorithm', payload: { id: 'depthfs' } })
+				}>
+				Test depthfs
 			</div>
 			<Grid
 				grid={state.grid}
