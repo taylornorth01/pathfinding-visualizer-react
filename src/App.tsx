@@ -10,6 +10,8 @@ import {
 	getSpeed,
 	updateAlgorithm,
 	mapNodesStateToGrid,
+	getMazeObject,
+	updateMaze,
 } from './common/';
 import { Grid } from './component/';
 import { GridNode, AppState, AppActions } from './model/';
@@ -38,6 +40,7 @@ const reducer = (state: AppState, action: AppActions) => {
 		case 'change-algorithm':
 			return {
 				...dState,
+				grid: clearPath(dState.grid),
 				algorithm: getAlgorithmObject(dState, action.payload),
 				wasSearch: false,
 			};
@@ -58,6 +61,9 @@ const reducer = (state: AppState, action: AppActions) => {
 			return { ...dState, speed: getSpeed(action.payload) };
 		case 'set-was-search':
 			return { ...dState, wasSearch: action.payload };
+		case 'change-maze':
+			dState.maze = getMazeObject(action.payload, dState.grid);
+			return { ...dState, ...updateMaze(dState) };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -67,9 +73,9 @@ const App: React.FC = () => {
 	const [state, dispatch] = useReducer(
 		reducer,
 		{
-			grid: createGrid(5, 5),
-			start: { x: 0, y: 0 },
-			goal: { x: 4, y: 4 },
+			grid: createGrid(15, 25),
+			start: { x: 1, y: 1 },
+			goal: { x: 3, y: 3 },
 			isDragging: false,
 			isSearching: false,
 			wasSearch: false,
@@ -137,6 +143,18 @@ const App: React.FC = () => {
 			<div onClick={startAlgorithm}>Start</div>
 			<div
 				onClick={() =>
+					dispatch({ type: 'change-maze', payload: { id: 'recursive' } })
+				}>
+				Recursive
+			</div>
+			<div
+				onClick={() =>
+					dispatch({ type: 'change-maze', payload: { id: 'random' } })
+				}>
+				Random
+			</div>
+			<div
+				onClick={() =>
 					dispatch({ type: 'change-speed', payload: { id: 'slow' } })
 				}>
 				Slow
@@ -178,7 +196,7 @@ const App: React.FC = () => {
 					!state.isSearching && state.isDragging && mouseEnter(n)
 				}
 			/>
-			{JSON.stringify(state)}
+			{/* {JSON.stringify(state)} */}
 		</div>
 	);
 };
