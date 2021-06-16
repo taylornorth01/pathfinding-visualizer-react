@@ -1,6 +1,8 @@
 //
 import { RandomMaze, RecursiveDivision } from '../algorithm';
-import { GridObject, MazeId, MazeObject } from '../model';
+import { GridObject, MazeId, MazeObject, AppState } from '../model';
+import { updateAlgorithm } from './AlgorithmUtility';
+import { clearWalls } from './GridUtility';
 
 export const getMazeObject = ({ id }: MazeId, grid: GridObject): MazeObject => {
 	switch (id) {
@@ -19,4 +21,13 @@ export const getMazeObject = ({ id }: MazeId, grid: GridObject): MazeObject => {
 		default:
 			throw new Error('Maze not found');
 	}
+};
+
+export const updateMaze = (state: AppState): AppState | undefined => {
+	if (!state.maze) return;
+	let { grid, maze } = state;
+	grid = clearWalls(grid);
+	grid = maze.get().result();
+	state = { ...state, maze, grid };
+	return { ...state, ...updateAlgorithm(state) };
 };
