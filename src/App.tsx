@@ -8,6 +8,7 @@ import {
 	getAlgorithmObject,
 	clearPath,
 	getSpeed,
+	updateAlgorithm,
 } from './common/';
 import Grid from './component/Grid';
 import { GridNode, AppState, AppActions } from './model/';
@@ -32,15 +33,12 @@ const reducer = (state: AppState, action: AppActions) => {
 			};
 		case 'modify-nodes':
 			dState = { ...dState, ...minipulateNodes(dState, action.payload) };
-			let algorithm;
-			if (dState.algorithm) {
-				algorithm = getAlgorithmObject(dState, dState.algorithm);
-			}
-			return { ...dState, algorithm };
+			return { ...dState, ...updateAlgorithm(dState) };
 		case 'change-algorithm':
 			return {
 				...dState,
 				algorithm: getAlgorithmObject(dState, action.payload),
+				wasSearch: false,
 			};
 		case 'update-grid':
 			action.payload.map(
@@ -54,9 +52,11 @@ const reducer = (state: AppState, action: AppActions) => {
 		case 'toggle-searching':
 			return { ...dState, isSearching: !dState.isSearching };
 		case 'clear-path':
-			return { ...dState, grid: clearPath(dState.grid) };
+			return { ...dState, grid: clearPath(dState.grid), wasSearch: false };
 		case 'change-speed':
 			return { ...dState, speed: getSpeed(action.payload) };
+		case 'set-was-search':
+			return { ...dState, wasSearch: action.payload };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -71,6 +71,7 @@ const App: React.FC = () => {
 			goal: { x: 4, y: 4 },
 			isDragging: false,
 			isSearching: false,
+			wasSearch: false,
 			speed: getSpeed({ id: 'fast' }),
 		},
 		init
@@ -108,6 +109,7 @@ const App: React.FC = () => {
 			break;
 		}
 		dispatch({ type: 'toggle-searching' });
+		dispatch({ type: 'set-was-search', payload: true });
 	};
 
 	const mouseDown = (node: GridNode) => {
