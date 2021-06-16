@@ -18,4 +18,5 @@ export type AppActions =
 	| { type: 'change-algorithm'; payload: AlgorithmId }
 	| { type: 'update-grid'; payload: GridNode[] }
 	| { type: 'draw-path'; payload: GridNode }
-	| { type: 'toggle-searching' };
+	| { type: 'toggle-searching' }
+	| { type: 'clear-path' };
