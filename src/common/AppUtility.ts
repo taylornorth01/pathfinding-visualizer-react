@@ -6,13 +6,13 @@ export const minipulateNodes = (state: AppState, node: GridNode): AppState => {
 		case 'empty':
 			if (node.type !== 'start' && node.type !== 'goal') {
 				state.grid[node.pos.y][node.pos.x].type = 'wall';
-				return { ...state };
+				return state;
 			}
 			break;
 		case 'wall':
 			if (node.type !== 'start' && node.type !== 'goal') {
 				state.grid[node.pos.y][node.pos.x].type = 'empty';
-				return { ...state };
+				return state;
 			}
 			break;
 		case 'start':
@@ -20,34 +20,34 @@ export const minipulateNodes = (state: AppState, node: GridNode): AppState => {
 				if (state.start.y !== node.pos.y || state.start.x !== node.pos.x) {
 					state.grid[node.pos.y][node.pos.x].type = 'start';
 					if (node.type === 'wall' || node.type === 'empty') {
-						node.overided = node.type;
+						state.grid[node.pos.y][node.pos.x].overided = node.type;
 					}
-					let st = state.grid[state.start.y][state.start.x];
-					st.type = 'empty';
-					if (st.overided) {
-						st.type = st.overided;
-						delete st.overided;
+					state.grid[state.start.y][state.start.x].type = 'empty';
+					let override = state.grid[state.start.y][state.start.x].overided;
+					if (override) {
+						state.grid[state.start.y][state.start.x].type = override;
+						delete state.grid[state.start.y][state.start.x].overided;
 					}
 					state.start = node.pos;
-					return { ...state };
+					return state;
 				}
 			}
 			break;
 		case 'goal':
 			if (node.type !== 'start') {
+				console.log(node);
 				if (state.goal.y !== node.pos.y || state.goal.x !== node.pos.x) {
 					state.grid[node.pos.y][node.pos.x].type = 'goal';
 					if (node.type === 'wall' || node.type === 'empty') {
-						node.overided = node.type;
+						state.grid[node.pos.y][node.pos.x].overided = node.type;
 					}
-					let go = state.grid[state.goal.y][state.goal.x];
-					go.type = 'empty';
-					if (go.overided) {
-						go.type = go.overided;
-						delete go.overided;
+					state.grid[state.goal.y][state.goal.x].type = 'empty';
+					let override = state.grid[state.goal.y][state.goal.x].overided;
+					if (override) {
+						state.grid[state.goal.y][state.goal.x].type = override;
 					}
 					state.goal = node.pos;
-					return { ...state };
+					return state;
 				}
 			}
 			break;
