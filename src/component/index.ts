@@ -7,3 +7,4 @@ export * from './List';
 export * from './Column';
 export * from './Item';
 export * from './Radio';
+export * from './BigButton';
