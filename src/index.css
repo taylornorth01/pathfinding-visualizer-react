@@ -24,10 +24,10 @@ body {
 	--highlight-100: #42b47f;
 
 	--wall: #1b1b1f;
-	--goal: #df5353;
-	--start: var(--highlight);
-	--path: #f0ebd8;
-	--closed: #637dd4;
-	--open: #4299a1;
+	--goal: #bb3232;
+	--start: #59c794;
+	--path: #6d8ea3;
+	--closed: #433455;
+	--open: #31315a;
 	--current: #29ffd1;
 }
