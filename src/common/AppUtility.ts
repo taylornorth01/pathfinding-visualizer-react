@@ -67,3 +67,14 @@ export const getSpeed = ({ id }: SpeedId): Speed => {
 			throw new Error('Speed not found');
 	}
 };
+
+export const getViewportSize = () => {
+	let w = window.innerWidth;
+	if (w < 700) {
+		return 'mobile';
+	} else if (w < 1100) {
+		return 'tablet';
+	} else {
+		return 'desktop';
+	}
+};
