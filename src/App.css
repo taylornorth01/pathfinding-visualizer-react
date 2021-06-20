@@ -8,7 +8,6 @@
 .app__layout {
 	display: grid;
 	grid-template-columns: max-content auto;
-	column-gap: 30px;
 	height: 100vh;
 }
 
@@ -21,20 +20,51 @@
 }
 
 .column__2 {
-	background: blue;
+	background: var(--background);
 }
 
 .main__title {
 	font-size: 1.7rem;
 	margin-bottom: 25px;
+	/* margin-left: 28px; */
+	width: max-content;
+}
+
+.main__controls {
+	width: max-content;
+}
+
+.small__screen {
+	display: none;
 }
 
 @media screen and (max-width: 800px) {
 	.app__layout {
 		grid-template-columns: auto;
+		column-gap: -1px;
+	}
+
+	.column__1 {
+		height: max-content;
+		display: flex;
+		justify-content: center;
+	}
+
+	.column__2 {
+		height: 70vh;
+		display: flex;
+		justify-content: center;
 	}
 
 	html {
 		font-size: 14px;
+	}
+
+	.big__screen {
+		display: none;
+	}
+
+	.small__screen {
+		display: block;
 	}
 }
