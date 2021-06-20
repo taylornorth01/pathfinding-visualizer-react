@@ -1,0 +1,10 @@
+.button {
+	font-size: 1.2em;
+	margin-left: 29px;
+	transition: color 100ms;
+	cursor: pointer;
+}
+
+.button:hover {
+	color: red;
+}
