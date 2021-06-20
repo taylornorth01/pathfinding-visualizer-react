@@ -1,7 +1,40 @@
 .app {
 	width: 100vw;
 	height: 100vh;
-	background-color: var(--background);
 	color: white;
 	user-select: none;
+}
+
+.app__layout {
+	display: grid;
+	grid-template-columns: max-content auto;
+	column-gap: 30px;
+	height: 100vh;
+}
+
+.app__layout > div {
+	padding: 30px 20px;
+}
+
+.column__1 {
+	background: var(--background);
+}
+
+.column__2 {
+	background: blue;
+}
+
+.main__title {
+	font-size: 1.7rem;
+	margin-bottom: 25px;
+}
+
+@media screen and (max-width: 800px) {
+	.app__layout {
+		grid-template-columns: auto;
+	}
+
+	html {
+		font-size: 14px;
+	}
 }
