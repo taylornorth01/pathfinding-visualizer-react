@@ -1,5 +1,6 @@
 //
 import { GridObject, GridNode, FlagType, Position } from '../model';
+import { getViewportSize } from './AppUtility';
 
 export const createGrid = (h: number, w: number): GridObject => {
 	let grid: GridNode[][] = [];
@@ -48,4 +49,26 @@ export const clearWalls = (grid: GridObject): GridObject => {
 			return node;
 		});
 	});
+};
+
+export const getNodeSize = () => {
+	let viewport = getViewportSize();
+	switch (viewport) {
+		case 'mobile':
+			return 15;
+		case 'tablet':
+			return 20;
+		case 'desktop':
+			return 25;
+		default:
+			throw new Error('Viewport size not found');
+	}
+};
+
+export const getAvaliableGridSpace = (ref: HTMLDivElement | null) => {
+	if (!ref) return [];
+	let size = getNodeSize() + 1;
+	let widthInNodes = (ref.clientWidth - 40) / size;
+	let heightInNodes = (ref.clientHeight - 60) / size;
+	return [Math.floor(widthInNodes), Math.floor(heightInNodes)];
 };
