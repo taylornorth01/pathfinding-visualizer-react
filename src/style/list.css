@@ -1,0 +1,58 @@
+.list__container {
+	margin: 25px 0;
+	margin-left: 29px;
+}
+
+.list__title {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.list__item {
+	font-size: 16px;
+	margin: 10px 0;
+	position: relative;
+	background: none !important;
+	display: flex;
+	align-items: center;
+}
+
+.list__key {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	left: -24px;
+	border-radius: 3px;
+}
+
+.list__row {
+	display: flex;
+}
+
+.list__col:last-child {
+	margin-left: 50px;
+}
+
+.colour__goal {
+	background: var(--goal);
+}
+
+.colour__start {
+	background: var(--start);
+}
+
+.colour__path {
+	background: var(--path);
+}
+
+.colour__closed {
+	background: var(--closed);
+}
+
+.colour__open {
+	background: var(--open);
+}
+
+.colour__wall {
+	background: var(--wall);
+}
