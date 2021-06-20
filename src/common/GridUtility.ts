@@ -68,7 +68,9 @@ export const getNodeSize = () => {
 export const getAvaliableGridSpace = (ref: HTMLDivElement | null) => {
 	if (!ref) return [];
 	let size = getNodeSize() + 1;
-	let widthInNodes = (ref.clientWidth - 40) / size;
-	let heightInNodes = (ref.clientHeight - 60) / size;
-	return [Math.floor(widthInNodes), Math.floor(heightInNodes)];
+	let widthInNodes = Math.floor((ref.clientWidth - 40) / size);
+	let heightInNodes = Math.floor((ref.clientHeight - 60) / size);
+	if (widthInNodes % 2 === 0) widthInNodes -= 1;
+	if (heightInNodes % 2 === 0) heightInNodes -= 1;
+	return [widthInNodes, heightInNodes];
 };
