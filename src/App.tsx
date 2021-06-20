@@ -204,19 +204,15 @@ const App: React.FC = () => {
 								}
 							/>
 						</Dropdown>
-						<Button text='cool button' onClick={() => null} />
-						<List title='Legend'>
-							<Column>
-								<Item text='Start' keyCol=' colour__start' />
-								<Item text='Goal' keyCol=' colour__goal' />
-								<Item text='Wall' keyCol=' colour__wall' />
-							</Column>
-							<Column>
-								<Item text='Path' keyCol=' colour__path' />
-								<Item text='Open set' keyCol=' colour__open' />
-								<Item text='Closed set' keyCol=' colour__closed' />
-							</Column>
-						</List>
+
+						<Button
+							text='Clear path'
+							onClick={() => dispatch({ type: 'clear-path' })}
+						/>
+						<Button
+							text='Remove walls'
+							onClick={() => dispatch({ type: 'clear-walls' })}
+						/>
 						<Radio>
 							<Option
 								text='Slow'
@@ -240,6 +236,18 @@ const App: React.FC = () => {
 								}
 							/>
 						</Radio>
+						<List title='Legend'>
+							<Column>
+								<Item text='Start' keyCol=' colour__start' />
+								<Item text='Goal' keyCol=' colour__goal' />
+								<Item text='Wall' keyCol=' colour__wall' />
+							</Column>
+							<Column>
+								<Item text='Path' keyCol=' colour__path' />
+								<Item text='Open set' keyCol=' colour__open' />
+								<Item text='Closed set' keyCol=' colour__closed' />
+							</Column>
+						</List>
 					</div>
 				</div>
 				<div className='column__2'>
