@@ -267,6 +267,21 @@ const App: React.FC = () => {
 								<Item text='Closed set' keyCol=' colour__closed' />
 							</Column>
 						</List>
+						<List title='Settings'>
+							<Column>
+								<Item
+									text={
+										'Search: ' +
+										(state.algorithm ? state.algorithm?.name : 'Not selected')
+									}
+								/>
+								<Item
+									text={
+										'Maze: ' + (state.maze ? state.maze?.name : 'Not selected')
+									}
+								/>
+							</Column>
+						</List>
 						<div className='small__screen'>
 							<BigButton text='Visualize' onClick={() => startAlgorithm()} />
 						</div>
