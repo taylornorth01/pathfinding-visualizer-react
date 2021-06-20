@@ -29,7 +29,7 @@
 	display: flex;
 }
 
-.list__col:last-child {
+.list__col:nth-child(2) {
 	margin-left: 50px;
 }
 

@@ -3,7 +3,7 @@ import '../style/list.css';
 
 interface Props {
 	title: string;
-	children: JSX.Element | JSX.Element[];
+	children: JSX.Element | [JSX.Element, JSX.Element];
 }
 
 export const List: React.FC<Props> = ({ title, children }) => {
