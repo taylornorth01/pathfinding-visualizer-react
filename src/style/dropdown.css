@@ -17,7 +17,7 @@
 }
 
 .title__container:hover {
-	color: red;
+	color: var(--start);
 }
 
 .title__container svg {
@@ -29,14 +29,14 @@
 }
 
 .dropdown li {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	margin-left: 40px;
-	margin-top: 4px;
+	margin-top: 6px;
 	width: max-content;
 	cursor: pointer;
 	transition: color 100ms;
 }
 
 .dropdown li:hover {
-	color: red;
+	color: var(--start);
 }
