@@ -1,15 +1,15 @@
 .radio__buttons {
 	margin: 25px 0;
 	margin-left: 29px;
-	background: var(--background-100);
-	padding: 5px;
-	width: max-content;
-	border-radius: 4px;
 }
 
 .radio__buttons ul {
 	display: flex;
 	list-style: none;
+	background: var(--background-100);
+	padding: 5px;
+	width: max-content;
+	border-radius: 4px;
 }
 
 .radio__buttons li {
@@ -30,5 +30,13 @@
 
 .active {
 	color: var(--start);
-	background: var(--background);
+	background: var(--background) !important;
+}
+
+@media screen and (max-width: 800px) {
+	.radio__buttons {
+		margin-left: 0;
+		display: flex;
+		justify-content: center;
+	}
 }
