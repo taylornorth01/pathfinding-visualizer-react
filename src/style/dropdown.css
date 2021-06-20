@@ -1,0 +1,42 @@
+.dropdown {
+	margin: 10px 0;
+	width: max-content;
+}
+
+.title__container {
+	display: flex;
+	align-items: center;
+	font-size: 1.2rem;
+	width: max-content;
+	cursor: pointer;
+	transition: color 100ms;
+}
+
+.dropdown span {
+	padding-top: 2px;
+}
+
+.title__container:hover {
+	color: red;
+}
+
+.title__container svg {
+	margin-right: 5px;
+}
+
+.dropdown ul {
+	list-style: none;
+}
+
+.dropdown li {
+	font-size: 1.2em;
+	margin-left: 40px;
+	margin-top: 4px;
+	width: max-content;
+	cursor: pointer;
+	transition: color 100ms;
+}
+
+.dropdown li:hover {
+	color: red;
+}
