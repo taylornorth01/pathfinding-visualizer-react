@@ -16,6 +16,11 @@
 	margin-right: 5px;
 	border-radius: 4px;
 	cursor: pointer;
+	transition: background 100ms;
+}
+
+.radio__buttons li:hover {
+	background: var(--background-200);
 }
 
 .radio__buttons li:last-child {
@@ -23,5 +28,6 @@
 }
 
 .active {
+	color: var(--start);
 	background: var(--background);
 }
