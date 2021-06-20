@@ -17,7 +17,9 @@ body {
 }
 
 :root {
-	--background: #030303;
+	--background: #0f0f11;
+	--background-100: #1b1b1f;
+	--background-200: #232327;
 
 	--wall: #1d2d44;
 	--goal: #df5353;
