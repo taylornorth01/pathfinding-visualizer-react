@@ -173,12 +173,16 @@ const App: React.FC = () => {
 					<div className='main__controls'>
 						<div className='main__title'>Pathfinding Visualizer</div>
 						<div className='big__screen'>
-							<BigButton text='Visualize' onClick={() => startAlgorithm()} />
+							<BigButton
+								text='Visualize'
+								onClick={() => !state.isSearching && startAlgorithm()}
+							/>
 						</div>
 						<Dropdown title={'Search Algorithms'}>
 							<Option
 								text={'A* Search'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({
 										type: 'change-algorithm',
 										payload: { id: 'astar' },
@@ -188,6 +192,7 @@ const App: React.FC = () => {
 							<Option
 								text={'Dijkstra'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({
 										type: 'change-algorithm',
 										payload: { id: 'dijkstra' },
@@ -197,6 +202,7 @@ const App: React.FC = () => {
 							<Option
 								text={'Depth First Search'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({
 										type: 'change-algorithm',
 										payload: { id: 'depthfs' },
@@ -208,6 +214,7 @@ const App: React.FC = () => {
 							<Option
 								text={'Recursive Division'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({
 										type: 'change-maze',
 										payload: { id: 'recursive' },
@@ -217,23 +224,29 @@ const App: React.FC = () => {
 							<Option
 								text={'Random Maze'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({ type: 'change-maze', payload: { id: 'random' } })
 								}
 							/>
 						</Dropdown>
 						<Button
 							text='Clear path'
-							onClick={() => dispatch({ type: 'clear-path' })}
+							onClick={() =>
+								!state.isSearching && dispatch({ type: 'clear-path' })
+							}
 						/>
 						<Button
 							text='Remove walls'
-							onClick={() => dispatch({ type: 'clear-walls' })}
+							onClick={() =>
+								!state.isSearching && dispatch({ type: 'clear-walls' })
+							}
 						/>
 						<Radio>
 							<Option
 								text='Slow'
 								active={state.speed.id === 'slow'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({ type: 'change-speed', payload: { id: 'slow' } })
 								}
 							/>
@@ -241,6 +254,7 @@ const App: React.FC = () => {
 								text='Medium'
 								active={state.speed.id === 'medium'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({ type: 'change-speed', payload: { id: 'medium' } })
 								}
 							/>
@@ -248,6 +262,7 @@ const App: React.FC = () => {
 								text='Fast'
 								active={state.speed.id === 'fast'}
 								onClick={() =>
+									!state.isSearching &&
 									dispatch({ type: 'change-speed', payload: { id: 'fast' } })
 								}
 							/>
@@ -280,7 +295,10 @@ const App: React.FC = () => {
 							</Column>
 						</List>
 						<div className='small__screen'>
-							<BigButton text='Visualize' onClick={() => startAlgorithm()} />
+							<BigButton
+								text='Visualize'
+								onClick={() => !state.isSearching && startAlgorithm()}
+							/>
 						</div>
 					</div>
 				</div>
