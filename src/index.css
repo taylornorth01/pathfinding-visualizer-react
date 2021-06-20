@@ -20,10 +20,12 @@ body {
 	--background: #0f0f11;
 	--background-100: #1b1b1f;
 	--background-200: #232327;
+	--highlight: #59c794;
+	--highlight-100: #42b47f;
 
-	--wall: #1d2d44;
+	--wall: #1b1b1f;
 	--goal: #df5353;
-	--start: #59c794;
+	--start: var(--highlight);
 	--path: #f0ebd8;
 	--closed: #637dd4;
 	--open: #4299a1;
