@@ -9,13 +9,13 @@ export const getMazeObject = ({ id }: MazeId, grid: GridObject): MazeObject => {
 		case 'recursive':
 			return {
 				id: 'recursive',
-				name: 'Recrusive Division Maze',
+				name: 'Recrusive Division',
 				get: () => new RecursiveDivision(grid),
 			};
 		case 'random':
 			return {
 				id: 'random',
-				name: 'Random Maze',
+				name: 'Random',
 				get: () => new RandomMaze(grid),
 			};
 		default:
