@@ -1,5 +1,5 @@
 //
-import { useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import './App.css';
 import {
 	createGrid,
@@ -13,6 +13,7 @@ import {
 	getMazeObject,
 	updateMaze,
 	clearWalls,
+	getAvaliableGridSpace,
 } from './common/';
 import {
 	Grid,
@@ -77,6 +78,14 @@ const reducer = (state: AppState, action: AppActions) => {
 		case 'clear-walls':
 			dState = { ...dState, grid: clearWalls(dState.grid) };
 			return { ...dState, ...updateAlgorithm(dState) };
+		case 'create-grid':
+			let { h, w } = action.payload;
+			let grid = createGrid(h, w);
+			dState.start = { x: 1, y: 1 };
+			dState.goal = { x: w - 2, y: h - 2 };
+			grid = placeFlag('start', dState.start, grid);
+			grid = placeFlag('goal', dState.goal, grid);
+			return { ...dState, grid };
 		default:
 			throw new Error('Reducer action not found');
 	}
@@ -86,7 +95,7 @@ const App: React.FC = () => {
 	const [state, dispatch] = useReducer(
 		reducer,
 		{
-			grid: createGrid(15, 25),
+			grid: createGrid(5, 5),
 			start: { x: 1, y: 1 },
 			goal: { x: 3, y: 3 },
 			isDragging: false,
@@ -96,6 +105,13 @@ const App: React.FC = () => {
 		},
 		init
 	);
+	const gridRef = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		let [w, h] = getAvaliableGridSpace(gridRef.current);
+		console.log(w, h);
+		dispatch({ type: 'create-grid', payload: { w, h } });
+	}, []);
 
 	const startAlgorithm = async () => {
 		if (!state.algorithm) return;
@@ -158,6 +174,7 @@ const App: React.FC = () => {
 				<div className='column__1'>
 					<div className='main__controls'>
 						<div className='main__title'>Pathfinding Visualizer</div>
+						<Button text='Start' onClick={() => startAlgorithm()} />
 						<Dropdown title={'Search Algorithms'}>
 							<Option
 								text={'A* Search'}
@@ -204,7 +221,6 @@ const App: React.FC = () => {
 								}
 							/>
 						</Dropdown>
-
 						<Button
 							text='Clear path'
 							onClick={() => dispatch({ type: 'clear-path' })}
@@ -250,22 +266,16 @@ const App: React.FC = () => {
 						</List>
 					</div>
 				</div>
-				<div className='column__2'>
-					<div className='test'>test</div>
-					{state.maze?.id}
-					<br />
-					{state.algorithm?.id}
-					<br />
-					{state.speed?.id}
+				<div className='column__2' ref={gridRef}>
+					<Grid
+						grid={state.grid}
+						mouseDown={(n) => !state.isSearching && mouseDown(n)}
+						mouseEnter={(n) =>
+							!state.isSearching && state.isDragging && mouseEnter(n)
+						}
+					/>
 				</div>
 			</div>
-			{/* <Grid
-				grid={state.grid}
-				mouseDown={(n) => !state.isSearching && mouseDown(n)}
-				mouseEnter={(n) =>
-					!state.isSearching && state.isDragging && mouseEnter(n)
-				}
-			/> */}
 		</div>
 	);
 };
