@@ -1,4 +1,5 @@
 //
+import { getNodeSize } from '../common';
 import { GridNode, GridObject, NodeColour } from '../model';
 import '../style/grid.css';
 
@@ -33,6 +34,14 @@ export const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
 		}
 	};
 
+	const getStyles = () => {
+		let size = getNodeSize();
+		return {
+			width: size,
+			height: size,
+		};
+	};
+
 	return (
 		<div>
 			{grid.map((row, rowIdx) => {
@@ -44,7 +53,8 @@ export const Grid: React.FC<Props> = ({ grid, mouseDown, mouseEnter }) => {
 									className={'grid__node' + getNodeClass(node)}
 									onMouseDown={() => mouseDown(node)}
 									onMouseEnter={() => mouseEnter(node)}
-									key={nodeIdx}>
+									key={nodeIdx}
+									style={getStyles()}>
 									{/* {node.type} */}
 									<br />
 									{/* {node.state} */}
