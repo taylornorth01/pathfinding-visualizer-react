@@ -1,5 +1,4 @@
 //
-
 import { GridObject } from '../model';
 
 export class RandomMaze {

@@ -1,5 +1,4 @@
 //
-
 import { RandomMaze, RecursiveDivision } from '../algorithm';
 
 export type MazeObject =

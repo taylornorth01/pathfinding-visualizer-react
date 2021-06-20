@@ -110,7 +110,6 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		let [w, h] = getAvaliableGridSpace(gridRef.current);
-		console.log(w, h);
 		dispatch({ type: 'create-grid', payload: { w, h } });
 	}, []);
 
@@ -153,14 +152,12 @@ const App: React.FC = () => {
 	};
 
 	const mouseDown = (node: GridNode) => {
-		console.log('Mouse down event', node);
 		window.addEventListener('mouseup', mouseUp);
 		dispatch({ type: 'toggle-dragging', payload: node.type });
 		dispatch({ type: 'modify-nodes', payload: node });
 	};
 
 	const mouseEnter = (node: GridNode) => {
-		console.log('Mouse enter event', node);
 		dispatch({ type: 'modify-nodes', payload: node });
 	};
 

@@ -1,3 +1,4 @@
+//
 import { GridObject } from '../model';
 
 export class RecursiveDivision {
