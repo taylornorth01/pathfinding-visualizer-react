@@ -24,6 +24,7 @@ import {
 	Item,
 	List,
 	Radio,
+	BigButton,
 } from './component/';
 import { GridNode, AppState, AppActions } from './model/';
 
@@ -46,8 +47,8 @@ const reducer = (state: AppState, action: AppActions) => {
 				placeType: action.payload,
 			};
 		case 'modify-nodes':
-			dState = { ...dState, ...minipulateNodes(dState, action.payload) };
-			return { ...dState, ...updateAlgorithm(dState) };
+			dState = minipulateNodes(dState, action.payload);
+			return updateAlgorithm(dState);
 		case 'change-algorithm':
 			return {
 				...dState,
@@ -174,7 +175,9 @@ const App: React.FC = () => {
 				<div className='column__1'>
 					<div className='main__controls'>
 						<div className='main__title'>Pathfinding Visualizer</div>
-						<Button text='Start' onClick={() => startAlgorithm()} />
+						<div className='big__screen'>
+							<BigButton text='Visualize' onClick={() => startAlgorithm()} />
+						</div>
 						<Dropdown title={'Search Algorithms'}>
 							<Option
 								text={'A* Search'}
@@ -264,6 +267,9 @@ const App: React.FC = () => {
 								<Item text='Closed set' keyCol=' colour__closed' />
 							</Column>
 						</List>
+						<div className='small__screen'>
+							<BigButton text='Visualize' onClick={() => startAlgorithm()} />
+						</div>
 					</div>
 				</div>
 				<div className='column__2' ref={gridRef}>
