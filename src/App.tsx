@@ -14,7 +14,16 @@ import {
 	updateMaze,
 	clearWalls,
 } from './common/';
-import { Grid } from './component/';
+import {
+	Grid,
+	Dropdown,
+	Option,
+	Button,
+	Column,
+	Item,
+	List,
+	Radio,
+} from './component/';
 import { GridNode, AppState, AppActions } from './model/';
 
 var _ = require('lodash');
@@ -145,67 +154,110 @@ const App: React.FC = () => {
 
 	return (
 		<div className='app'>
-			{state.algorithm?.id}
-			{state.algorithm?.name}
-			<div onClick={startAlgorithm}>Start</div>
-			<div onClick={() => dispatch({ type: 'clear-path' })}>Clear path</div>
-			<div onClick={() => dispatch({ type: 'clear-walls' })}>Remove walls</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-maze', payload: { id: 'recursive' } })
-				}>
-				Recursive
+			<div className='app__layout'>
+				<div className='column__1'>
+					<div className='main__controls'>
+						<div className='main__title'>Pathfinding Visualizer</div>
+						<Dropdown title={'Search Algorithms'}>
+							<Option
+								text={'A* Search'}
+								onClick={() =>
+									dispatch({
+										type: 'change-algorithm',
+										payload: { id: 'astar' },
+									})
+								}
+							/>
+							<Option
+								text={'Dijkstra'}
+								onClick={() =>
+									dispatch({
+										type: 'change-algorithm',
+										payload: { id: 'dijkstra' },
+									})
+								}
+							/>
+							<Option
+								text={'Depth First Search'}
+								onClick={() =>
+									dispatch({
+										type: 'change-algorithm',
+										payload: { id: 'depthfs' },
+									})
+								}
+							/>
+						</Dropdown>
+						<Dropdown title={'Maze Algorithms'}>
+							<Option
+								text={'Recursive Division'}
+								onClick={() =>
+									dispatch({
+										type: 'change-maze',
+										payload: { id: 'recursive' },
+									})
+								}
+							/>
+							<Option
+								text={'Random Maze'}
+								onClick={() =>
+									dispatch({ type: 'change-maze', payload: { id: 'random' } })
+								}
+							/>
+						</Dropdown>
+						<Button text='cool button' onClick={() => null} />
+						<List title='Legend'>
+							<Column>
+								<Item text='Start' keyCol=' colour__start' />
+								<Item text='Goal' keyCol=' colour__goal' />
+								<Item text='Wall' keyCol=' colour__wall' />
+							</Column>
+							<Column>
+								<Item text='Path' keyCol=' colour__path' />
+								<Item text='Open set' keyCol=' colour__open' />
+								<Item text='Closed set' keyCol=' colour__closed' />
+							</Column>
+						</List>
+						<Radio>
+							<Option
+								text='Slow'
+								active={state.speed.id === 'slow'}
+								onClick={() =>
+									dispatch({ type: 'change-speed', payload: { id: 'slow' } })
+								}
+							/>
+							<Option
+								text='Medium'
+								active={state.speed.id === 'medium'}
+								onClick={() =>
+									dispatch({ type: 'change-speed', payload: { id: 'medium' } })
+								}
+							/>
+							<Option
+								text='Fast'
+								active={state.speed.id === 'fast'}
+								onClick={() =>
+									dispatch({ type: 'change-speed', payload: { id: 'fast' } })
+								}
+							/>
+						</Radio>
+					</div>
+				</div>
+				<div className='column__2'>
+					<div className='test'>test</div>
+					{state.maze?.id}
+					<br />
+					{state.algorithm?.id}
+					<br />
+					{state.speed?.id}
+				</div>
 			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-maze', payload: { id: 'random' } })
-				}>
-				Random
-			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-speed', payload: { id: 'slow' } })
-				}>
-				Slow
-			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-speed', payload: { id: 'medium' } })
-				}>
-				Medium
-			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-speed', payload: { id: 'fast' } })
-				}>
-				Fast
-			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-algorithm', payload: { id: 'dijkstra' } })
-				}>
-				Test dij
-			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-algorithm', payload: { id: 'astar' } })
-				}>
-				Test astar
-			</div>
-			<div
-				onClick={() =>
-					dispatch({ type: 'change-algorithm', payload: { id: 'depthfs' } })
-				}>
-				Test depthfs
-			</div>
-			<Grid
+			{/* <Grid
 				grid={state.grid}
 				mouseDown={(n) => !state.isSearching && mouseDown(n)}
 				mouseEnter={(n) =>
 					!state.isSearching && state.isDragging && mouseEnter(n)
 				}
-			/>
-			{/* {JSON.stringify(state)} */}
+			/> */}
 		</div>
 	);
 };
