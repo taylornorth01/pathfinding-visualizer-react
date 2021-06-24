@@ -6,8 +6,10 @@ Project was built using React and Typescript
 
 Algorithms implemented:
 
-Dijkstra
-A* Search
-Depth First Search
-Recursive Division
+<ul>
+  <li>Dijkstra</li>
+  <li>A* Search</li>
+  <li>Depth First Search</li>
+  <li>Recursive Division</li>
+</ul>
 
